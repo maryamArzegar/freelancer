@@ -28,13 +28,4 @@ function CheckOTPForm() {
 
 export default CheckOTPForm;
 
-//   return (
-//     <OtpInput
-//       value={otp}
-//       onChange={setOtp}
-//       numInputs={4}
-//       renderSeparator={<span>-</span>}
-//       renderInput={(props) => <input {...props} />}
-//     />
-//   );
-// }
+
