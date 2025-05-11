@@ -5,7 +5,7 @@ function CheckOTPForm() {
   return (
     <div>
       <form className="space-y-10">
-        <p className="font-bold text-secondary-800">کد تایید را وارد کنید</p>
+        <p className="font-bold text-secondary-800">کد تایید راااااااااااااااااا وارد کنید</p>
         <OtpInput 
         value={otp}
         onChange={setOtp}
