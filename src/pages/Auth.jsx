@@ -1,12 +1,13 @@
-import React from 'react'
-import CheckOTPForm from '../features/authentication/CheckOTPForm'
-// import SendOTPForm from '../features/authentication/SendOTPForm'
+import AuthContainer from "../features/authentication/AuthContainer";
 
 function Auth() {
   return (
-    // <SendOTPForm/>
-    <CheckOTPForm/>
-  )
+    <div className="container xl:max-w-screen-xl">
+      <div className="flex justify-center pt-10 ">
+        <AuthContainer />
+      </div>
+    </div>
+  );
 }
 
-export default Auth
+export default Auth;

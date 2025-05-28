@@ -10,7 +10,7 @@ function TextField({label, name, value, onChange}) {
         value={value}
         onChange={onChange}
         id={name}
-        type="number"
+        type="text"
         className="textField__input"
       />
     </div>
