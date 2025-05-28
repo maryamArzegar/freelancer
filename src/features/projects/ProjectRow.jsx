@@ -10,7 +10,7 @@ function ProjectRow({project,index}) {
     <td>{truncateText(project.title, 30)}</td>
     <td>{project.category.title}</td>
     <td>{toPersianNumbersWithComma(project.budget)}</td>
-    <td>{toLocalDateShort(project.deadline)}</td>
+    <td className="bg-slate-600">{toLocalDateShort(project.deadline)}</td>
     <td>
       <div className="flex flex-wrap items-center gap-2 max-w-[200px]">
         {project.tags.map((tag) => (
