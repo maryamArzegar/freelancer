@@ -1,8 +1,7 @@
-import React from "react";
 import TextField from "../../ui/TextField";
 import Loading from "../../ui/Loading";
 
-function SendOTPForm({ phoneNumber, onChange, isSending, onSubmit }) {
+function SendOTPForm({ register, isSending, onSubmit }) {
   return (
     <div>
       <form className="space-y-8" onSubmit={onSubmit}>
@@ -10,8 +9,7 @@ function SendOTPForm({ phoneNumber, onChange, isSending, onSubmit }) {
           <TextField
             label="شماره موبایل"
             name="phoneNumber"
-            value={phoneNumber}
-            onChange={onChange}
+            register={register}
           />
         </div>
         <div>

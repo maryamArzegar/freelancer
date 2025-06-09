@@ -1,13 +1,14 @@
-import React from 'react'
-import ProjectTable from '../features/projects/ProjectTable'
-
+import React from "react";
+import ProjectTable from "../features/projects/ProjectTable";
+import ProjectsHeader from "../features/projects/ProjectsHeader";
 
 function Projects() {
   return (
-   <div>
-<ProjectTable/>
-   </div>
-  )
+    <div>
+      <ProjectsHeader />
+      <ProjectTable />
+    </div>
+  );
 }
 
-export default Projects
+export default Projects;

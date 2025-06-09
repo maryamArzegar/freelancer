@@ -1,4 +1,3 @@
-import { useState } from "react";
 import TextField from "../../ui/TextField";
 import RadioInput from "../../ui/RadioInput";
 import toast from "react-hot-toast";
@@ -6,19 +5,23 @@ import { completeProfile } from "../../service/authService";
 import Loading from "../../ui/Loading";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import RadioInputGroup from "../../ui/RadioInputGroup";
 
 function CompleteProfileForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const { mutateAsync, isPending } = useMutation({
     mutationFn: completeProfile,
   });
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
-      const { user, message } = await mutateAsync({ name, email, role });
+      const { user, message } = await mutateAsync(data);
       toast.success(message);
       if (user.status !== 2) {
         navigate("/");
@@ -36,39 +39,51 @@ function CompleteProfileForm() {
     }
   };
   return (
-    <div className="flex justify-center pt-10">
+    <div className="flex flex-col gap-y-6 items-center pt-10">
+      <h1 className="font-bold text-3xl text-secondary-700">تکمیل اطلاعات</h1>
       <div className="w-full sm:max-w-sm">
-        <form className="space-y-8" onSubmit={handleSubmit}>
+        <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label="نام و نام خانوادگی"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            register={register}
+            validationSchema={{
+              required: "نام و نام خانوادگی ضروری است",
+            }}
+            errors={errors}
           />
           <TextField
             label="ایمیل"
             name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            register={register}
+            validationSchema={{
+              required: " ایمیل ضروری است",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "ایمیل نامعتبر است",
+              },
+            }}
+            errors={errors}
           />
-          <div className="flex items-center justify-center gap-x-8">
-            <RadioInput
-              label="کارفرما"
-              value="OWNER"
-              onChange={(e) => setRole(e.target.value)}
-              id="OWNER"
-              name={role}
-              checked={role === "OWNER"}
-            />
-            <RadioInput
-              label="فریلنسر"
-              value="FREELANCER"
-              onChange={(e) => setRole(e.target.value)}
-              id="FREELANCER"
-              name={role}
-              checked={role === "FREELANCER"}
-            />
-          </div>
+          <RadioInputGroup
+            errors={errors}
+            register={register}
+            watch={watch}
+            configs={{
+              name: "role",
+              validationSchema: { required: "انتخاب نقش ضروری است" },
+              options: [
+                {
+                  value: "OWNER",
+                  label: "کارفرما",
+                },
+                {
+                  value: "FREELANCER",
+                  label: "فریلنسر",
+                },
+              ],
+            }}
+          />
           <div>
             {isPending ? (
               <Loading />
